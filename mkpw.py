@@ -28,6 +28,14 @@ class MkPw:
         choice = random.choice(List)
         return choice
 
+    def getRandomSpecial(self):
+        List = [ '`', '-', '=', '[', ']', ';', "'", ',', '.', '/', '\\', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '{','}', '|', ':', '"', '<', '>', '?' ]
+        input( "press enter to generate a random special character" )
+        random.seed()
+        choice = random.choice(List)
+        return choice
+
+
     ########################################################################################################################
     ##   getRandomWord()
     ##      For now, uses default word file.  This is for dev only.  I wouldn't recommend actually using this file.
@@ -58,6 +66,10 @@ class TestMkPw( unittest.TestCase ):
     def testUpper(self):
         a = self.x.getRandomLetterUC()
         self.assertTrue( a in string.ascii_uppercase )
+
+    def testSpecial(self):
+        a = self.x.getRandomSpecial()
+        self.assertTrue( a in string.punctuation )
 
     def testWord(self):
         word = self.x.getRandomWord()
