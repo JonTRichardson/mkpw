@@ -7,31 +7,43 @@ class MkPw:
     """ something truly random because it is dependent on user input.  """
     wordList = []
 
-    def getRandomDigit(self):
+    def getRandomDigit(self, seed=""):
         List = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ]
-        input( "press enter to generate a random digit" )
-        random.seed()
+        if (seed == "" ):
+            input( "press enter to generate a random digit" )
+            random.seed()
+        else:
+            random.seed( seed )
         choice = random.choice(List)
         return choice
 
-    def getRandomLetterLC(self):
+    def getRandomLetterLC(self, seed=""):
         List = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r','s','t','u','v','w','x','y','z' ]
-        input( "press enter to generate a random LC letter" )
-        random.seed()
+        if (seed == "" ):
+            input( "press enter to generate a random LC letter" )
+            random.seed()
+        else:
+            random.seed( seed )
         choice = random.choice(List)
         return choice
 
-    def getRandomLetterUC(self):
+    def getRandomLetterUC(self, seed=""):
         List = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R','S','T','U','V','W','X','Y','Z' ]
-        input( "press enter to generate a random UC letter" )
-        random.seed()
+        if (seed == "" ):
+            input( "press enter to generate a random UC letter" )
+            random.seed()
+        else:
+            random.seed( seed )
         choice = random.choice(List)
         return choice
 
-    def getRandomSpecial(self):
+    def getRandomSpecial(self, seed=""):
         List = [ '`', '-', '=', '[', ']', ';', "'", ',', '.', '/', '\\', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '{','}', '|', ':', '"', '<', '>', '?' ]
-        input( "press enter to generate a random special character" )
-        random.seed()
+        if (seed == "" ):
+            input( "press enter to generate a random special character" )
+            random.seed()
+        else:
+            random.seed( seed )
         choice = random.choice(List)
         return choice
 
@@ -39,13 +51,16 @@ class MkPw:
     ########################################################################################################################
     ##   getRandomWord()
     ##      For now, uses default word file.  This is for dev only.  I wouldn't recommend actually using this file.
-    def getRandomWord(self):
+    def getRandomWord(self, seed="" ):
         if ( self.wordList == [] ):
             with open('defaultWords.txt') as file:
                 wordList = list(file.read().split())
 
-        input( "press enter to generate a random word" )
-        random.seed()
+        if (seed == "" ):
+            input( "press enter to generate a random word" )
+            random.seed()
+        else:
+            random.seed( seed )
         choice = random.choice( wordList )
         return choice
 
@@ -56,27 +71,32 @@ class TestMkPw( unittest.TestCase ):
     x = MkPw()
 
     def testDigit(self):
-        d = self.x.getRandomDigit()
-        self.assertTrue( d in string.digits )
+        for seed in range( 1000 ):
+            d = self.x.getRandomDigit( seed )
+            self.assertTrue( d in string.digits )
 
     def testLower(self):
-        a = self.x.getRandomLetterLC()
-        self.assertTrue( a in string.ascii_lowercase )
+        for seed in range( 1000 ):
+            a = self.x.getRandomLetterLC( seed )
+            self.assertTrue( a in string.ascii_lowercase )
 
     def testUpper(self):
-        a = self.x.getRandomLetterUC()
-        self.assertTrue( a in string.ascii_uppercase )
+        for seed in range( 1000 ):
+            a = self.x.getRandomLetterUC( seed )
+            self.assertTrue( a in string.ascii_uppercase )
 
     def testSpecial(self):
-        a = self.x.getRandomSpecial()
-        self.assertTrue( a in string.punctuation )
+        for seed in range( 1000 ):
+            a = self.x.getRandomSpecial( seed )
+            self.assertTrue( a in string.punctuation )
 
     def testWord(self):
-        word = self.x.getRandomWord()
-        self.assertTrue( len(word)>=2 and len(word)<8 )
+        for seed in range( 1000 ):
+            word = self.x.getRandomWord( seed )
+            self.assertTrue( len(word)>=2 and len(word)<10 )
 
-        for c in word:
-            self.assertTrue( c in string.ascii_lowercase )
+            for c in word:
+                self.assertTrue( c in string.ascii_lowercase )
 
     
 if __name__ == '__main__':
