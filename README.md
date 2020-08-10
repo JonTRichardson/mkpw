@@ -34,7 +34,15 @@ To facilitate automated testing and other batch investigations, there is a defau
 *	Don’t use the supposedly clever tricks to come up with passwords that you can remember (e.g. substituting ‘1’ for ‘I’).
 
 # The (not-quite-abstract) base class
-I’m providing a base class, which I intend for a user to override with their own tailoring.  I didn’t make it abstract, for one because I haven’t figured out how to do that in python, or if it can be done in python.  Second, I want to have unit tests for the methods and I don’t want to deal with the inconvenience of abstractness.  These decisions may change as this evolves.
+I’m providing a base class, which I intend for a user to override with their own tailoring.  I didn’t make it abstract, for one because I haven’t figured out how to do that in python, or if it can be done in python (Update: TODO: read https://docs.python.org/3/library/abc.html).  Second, I want to have unit tests for the methods and I don’t want to deal with the inconvenience of abstractness.  These decisions may change as this evolves.
 
 # Top-level generator
 The top-level generator randomly chooses methods and calls the methods to do their random thing.  This generator has a sense of the “quality of the password” that it is seeking.  “Quality” has different measures.  As I write this, password length is the only measure that I have implement with some adjustment based on what has gone into the pw so far (increasing the target length when a word is chosen from the word list).  The intent is for there to be additional quality measures (e.g. forcing there to be a number, upper, lower etc).
+
+# TODOs
+
+* Abstract base class: ttps://docs.python.org/3/library/abc.html
+* A very long word could result in out-of-bounds reference.
+* Some authentication systems are restricted in which special characters they take.
+* Words currently come out all lower case.  Consider ways to get more complexity.
+
