@@ -5,7 +5,17 @@ class MkPw:
     """ WIP Password maker.  Caveat: This doesn't fully address the cryptographic security of the RNG. """
     """ For now, asks the user to press enter.  My assumption is that this will set the RNG seed to    """
     """ something truly random because it is dependent on user input.  """
-    wordList = []
+    def __init__(self, file):
+        if (file == ""):
+            wordFileName = "defaultWords.txt"
+        else:
+            wordFileName = file
+
+        print( "wordFileName is ", wordFileName )
+
+        with open( wordFileName ) as self.file:
+            self.wordList = list(self.file.read().split())
+
 
     def getRandomDigit(self, seed=""):
         List = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ]
@@ -50,25 +60,20 @@ class MkPw:
 
     ########################################################################################################################
     ##   getRandomWord()
-    ##      For now, uses default word file.  This is for dev only.  I wouldn't recommend actually using this file.
     def getRandomWord(self, seed="" ):
-        if ( self.wordList == [] ):
-            with open('defaultWords.txt') as file:
-                wordList = list(file.read().split())
-
         if (seed == "" ):
             input( "press enter to generate a random word" )
             random.seed()
         else:
             random.seed( seed )
-        choice = random.choice( wordList )
+        choice = random.choice( self.wordList )
         return choice
-
 
 import string
 
 class TestMkPw( unittest.TestCase ):
-    x = MkPw()
+    x = MkPw("")
+    y = MkPw("testWords.txt")
 
     def testDigit(self):
         for seed in range( 1000 ):
@@ -98,7 +103,14 @@ class TestMkPw( unittest.TestCase ):
             for c in word:
                 self.assertTrue( c in string.ascii_lowercase )
 
-    
+    def testWord2(self):
+        for seed in range( 1000 ):
+            word = self.y.getRandomWord( seed )
+            self.assertTrue( len(word)>=2 and len(word)<10 )
+
+            for c in word:
+                self.assertTrue( c in string.ascii_lowercase )
+
 if __name__ == '__main__':
     print( 'Testing MkPw ...' )
     print( MkPw.__doc__ )

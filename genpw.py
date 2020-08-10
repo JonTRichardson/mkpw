@@ -1,7 +1,7 @@
 import mkpw
 import random
 
-po = mkpw.MkPw()
+po = mkpw.MkPw( "" )
 
 methods = [ po.getRandomDigit, po.getRandomLetterLC, po.getRandomLetterUC, po.getRandomSpecial, po.getRandomWord ]
 
