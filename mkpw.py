@@ -71,47 +71,48 @@ class MkPw:
 
 import string
 
-class TestMkPw( unittest.TestCase ):
-    x = MkPw("")
-    y = MkPw("testWords.txt")
-
-    def testDigit(self):
-        for seed in range( 1000 ):
-            d = self.x.getRandomDigit( seed )
-            self.assertTrue( d in string.digits )
-
-    def testLower(self):
-        for seed in range( 1000 ):
-            a = self.x.getRandomLetterLC( seed )
-            self.assertTrue( a in string.ascii_lowercase )
-
-    def testUpper(self):
-        for seed in range( 1000 ):
-            a = self.x.getRandomLetterUC( seed )
-            self.assertTrue( a in string.ascii_uppercase )
-
-    def testSpecial(self):
-        for seed in range( 1000 ):
-            a = self.x.getRandomSpecial( seed )
-            self.assertTrue( a in string.punctuation )
-
-    def testWord(self):
-        for seed in range( 1000 ):
-            word = self.x.getRandomWord( seed )
-            self.assertTrue( len(word)>=2 and len(word)<10 )
-
-            for c in word:
-                self.assertTrue( c in string.ascii_lowercase )
-
-    def testWord2(self):
-        for seed in range( 1000 ):
-            word = self.y.getRandomWord( seed )
-            self.assertTrue( len(word)>=2 and len(word)<10 )
-
-            for c in word:
-                self.assertTrue( c in string.ascii_lowercase )
-
 if __name__ == '__main__':
+    class TestMkPw( unittest.TestCase ):
+        x = MkPw("")
+        y = MkPw("testWords.txt")
+    
+        def testDigit(self):
+            for seed in range( 1000 ):
+                d = self.x.getRandomDigit( seed )
+                self.assertTrue( d in string.digits )
+    
+        def testLower(self):
+            for seed in range( 1000 ):
+                a = self.x.getRandomLetterLC( seed )
+                self.assertTrue( a in string.ascii_lowercase )
+    
+        def testUpper(self):
+            for seed in range( 1000 ):
+                a = self.x.getRandomLetterUC( seed )
+                self.assertTrue( a in string.ascii_uppercase )
+    
+        def testSpecial(self):
+            for seed in range( 1000 ):
+                a = self.x.getRandomSpecial( seed )
+                self.assertTrue( a in string.punctuation )
+    
+        def testWord(self):
+            for seed in range( 1000 ):
+                word = self.x.getRandomWord( seed )
+                self.assertTrue( len(word)>=2 and len(word)<10 )
+    
+                for c in word:
+                    self.assertTrue( c in string.ascii_lowercase )
+    
+        def testWord2(self):
+            for seed in range( 1000 ):
+                word = self.y.getRandomWord( seed )
+                self.assertTrue( len(word)>=2 and len(word)<10 )
+    
+                for c in word:
+                    self.assertTrue( c in string.ascii_lowercase )
+    
+
     print( 'Testing MkPw ...' )
     print( MkPw.__doc__ )
     unittest.main()
