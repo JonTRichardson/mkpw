@@ -1,7 +1,19 @@
 import mkpw
 import random
 
-po = mkpw.MkPw( "" )
+##########################
+#  Arguments
+import argparse
+argumentParser = argparse.ArgumentParser()
+argumentParser.add_argument( "filename", type=str )
+arguments = argumentParser.parse_args()
+print( arguments )
+
+print( "filename:", arguments.filename )
+
+##############################
+#  Main
+po = mkpw.MkPw( arguments.filename )
 
 methods = [ po.getRandomDigit, po.getRandomLetterLC, po.getRandomLetterUC, po.getRandomSpecial, po.getRandomWord ]
 
