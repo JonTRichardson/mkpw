@@ -7,9 +7,6 @@ import argparse
 argumentParser = argparse.ArgumentParser()
 argumentParser.add_argument( "filename", type=str )
 arguments = argumentParser.parse_args()
-print( arguments )
-
-print( "filename:", arguments.filename )
 
 ##############################
 #  Main
