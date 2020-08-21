@@ -28,30 +28,12 @@ class myPw(mkpw.MkPw):
 
 ##############################
 #  Main
+print("penpw.py:main")
 po = myPw( arguments.filename )
 
-methods = [ po.getRandomDigit, po.getRandomLetterLC, po.getRandomLetterUC, po.getRandomSpecial, po.getRandomWord ]
+print("penpw.py:calling po.genPW()")
+pw = po.genPW()
 
-pw = ""
-targetLength = 12
-wordLengthIncrement = [0, 0, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9] 
-
-while len(pw) < targetLength:
-    input( "Press <enter>" )
-    random.seed()
-    chosenMethod = random.choice(methods)
-    print( chosenMethod )
-    if chosenMethod==po.getRandomWord:
-        print( "method was getRandomWord" )
-        word = chosenMethod()
-        print( "word is:", word )
-        pw += word
-        print( "Adding to length:", wordLengthIncrement[ len(word) ] )
-        targetLength += wordLengthIncrement[ len(word) ] 
-        print( "New targetLength:", targetLength )
-    else:
-        pw += chosenMethod()
-    
 print("Password:", pw)
 
 

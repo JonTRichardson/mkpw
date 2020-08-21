@@ -69,6 +69,32 @@ class MkPw:
         choice = random.choice( self.wordList )
         return choice
 
+    def genPW(self):
+        methods = [ self.getRandomDigit, self.getRandomLetterLC, self.getRandomLetterUC, self.getRandomSpecial, self.getRandomWord ]
+
+        pw = ""
+        targetLength = 12
+        wordLengthIncrement = [0, 0, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9]
+
+        while len(pw) < targetLength:
+            input( "Press <enter>" )
+            random.seed()
+            chosenMethod = random.choice(methods)
+            print( chosenMethod )
+            if chosenMethod==self.getRandomWord:
+                print( "method was getRandomWord" )
+                word = chosenMethod()
+                print( "word is:", word )
+                pw += word
+                print( "Adding to length:", wordLengthIncrement[ len(word) ] )
+                targetLength += wordLengthIncrement[ len(word) ]
+                print( "New targetLength:", targetLength )
+            else:
+                pw += chosenMethod()
+
+        return pw
+
+
 import string
 
 if __name__ == '__main__':
