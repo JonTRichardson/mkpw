@@ -69,18 +69,26 @@ class MkPw:
         choice = random.choice( self.wordList )
         return choice
 
-    def genPW(self):
+    ########################################################################################################################
+    ##   chooseMethod()
+    ##       Picks which class of character(s) to use for the next part of the password.
+    ##       Override this method if you want a different mix or way of combining component types.
+    def chooseMethod(self):
         methods = [ self.getRandomDigit, self.getRandomLetterLC, self.getRandomLetterUC, self.getRandomSpecial, self.getRandomWord ]
+        input( "Press <enter> to choose next method" )
+        random.seed()
+        chosenMethod = random.choice(methods)
+        return chosenMethod
+
+
+    def genPW(self):
 
         pw = ""
         targetLength = 12
         wordLengthIncrement = [0, 0, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9]
 
         while len(pw) < targetLength:
-            input( "Press <enter>" )
-            random.seed()
-            chosenMethod = random.choice(methods)
-            print( chosenMethod )
+            chosenMethod = self.chooseMethod()
             if chosenMethod==self.getRandomWord:
                 print( "method was getRandomWord" )
                 word = chosenMethod()
