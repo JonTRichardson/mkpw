@@ -16,6 +16,7 @@ class interactiveWord(mkpw.MkPw):
             print("Chosen word is ", choice)
             response = input("Is that ok(y/n?")
             print("response is ", response)
+        self.nWords = self.nWords + 1
         return choice
 
 #TODO: A very long word could result in out-of-bounds reference.

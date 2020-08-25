@@ -5,6 +5,14 @@ class MkPw:
     """ WIP Password maker.  Caveat: This doesn't fully address the cryptographic security of the RNG. """
     """ For now, asks the user to press enter.  My assumption is that this will set the RNG seed to    """
     """ something truly random because it is dependent on user input.  """
+
+    # Statistics:
+    nDigits   = 0
+    nLetterLC = 0
+    nLetterUC = 0
+    nSpecial  = 0
+    nWords    = 0
+
     def __init__(self, file):
         if (file == ""):
             wordFileName = "defaultWords.txt"
@@ -16,6 +24,19 @@ class MkPw:
         with open( wordFileName ) as self.file:
             self.wordList = list(self.file.read().split())
 
+    def resetStats(self):
+        self.nDigits   = 0
+        self.nLetterLC = 0
+        self.nLetterUC = 0
+        self.nSpecial  = 0
+        self.nWords    = 0
+
+    def printStats(self):
+        print( "nDigits  = ", self.nDigits )
+        print( "nLetterLC= ", self.nLetterLC )
+        print( "nLetterUC= ", self.nLetterUC )
+        print( "nSpecial = ", self.nSpecial )
+        print( "nWords   = ", self.nWords )
 
     def getRandomDigit(self, seed=""):
         List = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ]
@@ -25,6 +46,7 @@ class MkPw:
         else:
             random.seed( seed )
         choice = random.choice(List)
+        self.nDigits = self.nDigits + 1
         return choice
 
     def getRandomLetterLC(self, seed=""):
@@ -35,6 +57,7 @@ class MkPw:
         else:
             random.seed( seed )
         choice = random.choice(List)
+        self.nLetterLC = self.nLetterLC + 1
         return choice
 
     def getRandomLetterUC(self, seed=""):
@@ -45,6 +68,7 @@ class MkPw:
         else:
             random.seed( seed )
         choice = random.choice(List)
+        self.nLetterUC = self.nLetterUC + 1
         return choice
 
     def getRandomSpecial(self, seed=""):
@@ -55,6 +79,7 @@ class MkPw:
         else:
             random.seed( seed )
         choice = random.choice(List)
+        self.nSpecial = self.nSpecial + 1
         return choice
 
 
@@ -67,6 +92,7 @@ class MkPw:
         else:
             random.seed( seed )
         choice = random.choice( self.wordList )
+        self.nWords = self.nWords + 1
         return choice
 
     ########################################################################################################################
@@ -86,6 +112,7 @@ class MkPw:
         pw = ""
         targetLength = 12
         wordLengthIncrement = [0, 0, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9]
+        self.resetStats()
 
         while len(pw) < targetLength:
             chosenMethod = self.chooseMethod()
@@ -146,7 +173,6 @@ if __name__ == '__main__':
                 for c in word:
                     self.assertTrue( c in string.ascii_lowercase )
     
-
     print( 'Testing MkPw ...' )
     print( MkPw.__doc__ )
     unittest.main()

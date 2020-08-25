@@ -18,5 +18,6 @@ print("penpw.py:calling po.genPW()")
 pw = po.genPW()
 
 print("Password:", pw)
+po.printStats()
 
 
