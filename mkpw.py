@@ -13,6 +13,8 @@ class MkPw:
     nSpecial  = 0
     nWords    = 0
 
+    lastMethod = ''  # Previous chosen method
+
     def __init__(self, file):
         if (file == ""):
             wordFileName = "defaultWords.txt"
@@ -104,6 +106,7 @@ class MkPw:
         input( "Press <enter> to choose next method" )
         random.seed()
         chosenMethod = random.choice(methods)
+        self.lastMethod = chosenMethod
         return chosenMethod
 
 
