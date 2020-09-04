@@ -109,12 +109,23 @@ class MkPw:
         self.lastMethod = chosenMethod
         return chosenMethod
 
+    ########################################################################################################################
+    ##   getLengthIncrement()
+    ##       Determine how much to add to the target length based on length of a word component.
+    ##       We add to the lengh because a familiar word makes it easier to remember & enter so a longer password is tolerable; 
+    ##       Furthermore, a word provides less entropy than a string of random letters of similar length.
+    def getLengthIncrement(self, word):
+        wordLengthIncrement = [0, 0, 1, 1, 2, 2, 3, 4, 5, 6, 7]
+        if len(word) < len(wordLengthIncrement):
+            return wordLengthIncrement[ len(word) ]
+        else:
+            # word too long.  Return the last value in the array plus the additional length of the word beyond the end of the array.
+            return ( wordLengthIncrement[-1] + len(word) - (len(wordLengthIncrement)-1) )
 
     def genPW(self):
 
         pw = ""
         targetLength = 12
-        wordLengthIncrement = [0, 0, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9]
         self.resetStats()
 
         while len(pw) < targetLength:
@@ -124,8 +135,7 @@ class MkPw:
                 word = chosenMethod()
                 print( "word is:", word )
                 pw += word
-                print( "Adding to length:", wordLengthIncrement[ len(word) ] )
-                targetLength += wordLengthIncrement[ len(word) ]
+                targetLength += self.getLengthIncrement( word )
                 print( "New targetLength:", targetLength )
             else:
                 pw += chosenMethod()
@@ -140,6 +150,20 @@ if __name__ == '__main__':
         x = MkPw("")
         y = MkPw("testWords.txt")
     
+        def testGetLengthIncrement(self):
+            word = '123'
+            self.assertEqual( 1, self.x.getLengthIncrement(word) )
+            word = '123456789'
+            self.assertEqual( 6, self.x.getLengthIncrement(word) )
+            word = '1234567890'
+            self.assertEqual( 7, self.x.getLengthIncrement(word) )
+            word = '12345678901'
+            self.assertEqual( 8, self.x.getLengthIncrement(word) )
+            word = '123456789012'
+            self.assertEqual( 9, self.x.getLengthIncrement(word) )
+            word = '1234567890123456789012345678901234567890'
+            self.assertEqual( 37, self.x.getLengthIncrement(word) )
+
         def testDigit(self):
             for seed in range( 1000 ):
                 d = self.x.getRandomDigit( seed )
@@ -171,10 +195,10 @@ if __name__ == '__main__':
         def testWord2(self):
             for seed in range( 1000 ):
                 word = self.y.getRandomWord( seed )
-                self.assertTrue( len(word)>=2 and len(word)<10 )
+                self.assertTrue( len(word)>=2 and len(word)<17 )
     
                 for c in word:
-                    self.assertTrue( c in string.ascii_lowercase )
+                    self.assertTrue( c in string.ascii_lowercase or c=='-', word )
     
     print( 'Testing MkPw ...' )
     print( MkPw.__doc__ )
