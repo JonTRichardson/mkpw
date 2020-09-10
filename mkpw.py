@@ -2,9 +2,9 @@ import random
 import unittest
 
 class MkPw:
-    """ WIP Password maker.  Caveat: This doesn't fully address the cryptographic security of the RNG. """
-    """ For now, asks the user to press enter.  My assumption is that this will set the RNG seed to    """
-    """ something truly random because it is dependent on user input.  """
+    """ WIP Password maker. """
+    """ For now, asks the user to press enter.  My assumption is that this will set the """
+    """ RNG seed to something truly random because it is dependent on user input.  """
 
     # Statistics:
     nDigits   = 0
@@ -52,7 +52,8 @@ class MkPw:
         return choice
 
     def getRandomLetterLC(self, seed=""):
-        List = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r','s','t','u','v','w','x','y','z' ]
+        List = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+                 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ]
         if (seed == "" ):
             input( "press enter to generate a random LC letter" )
             random.seed()
@@ -63,7 +64,8 @@ class MkPw:
         return choice
 
     def getRandomLetterUC(self, seed=""):
-        List = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R','S','T','U','V','W','X','Y','Z' ]
+        List = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' ]
         if (seed == "" ):
             input( "press enter to generate a random UC letter" )
             random.seed()
@@ -74,7 +76,9 @@ class MkPw:
         return choice
 
     def getRandomSpecial(self, seed=""):
-        List = [ '`', '-', '=', '[', ']', ';', "'", ',', '.', '/', '\\', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '{','}', '|', ':', '"', '<', '>', '?' ]
+        List = [ '`', '-', '=', '[', ']', ';', "'", ',', '.', '/', '\\', '~', '!',
+                 '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+',  '{', '}',
+                 '|', ':', '"', '<', '>', '?' ]
         if (seed == "" ):
             input( "press enter to generate a random special character" )
             random.seed()
@@ -85,7 +89,7 @@ class MkPw:
         return choice
 
 
-    ########################################################################################################################
+    #######################################################################################
     ##   getRandomWord()
     def getRandomWord(self, seed="" ):
         if (seed == "" ):
@@ -97,29 +101,32 @@ class MkPw:
         self.nWords = self.nWords + 1
         return choice
 
-    ########################################################################################################################
+    #######################################################################################
     ##   chooseMethod()
     ##       Picks which class of character(s) to use for the next part of the password.
-    ##       Override this method if you want a different mix or way of combining component types.
+    ##       Override this method if you want a different way of mixing component types.
     def chooseMethod(self):
-        methods = [ self.getRandomDigit, self.getRandomLetterLC, self.getRandomLetterUC, self.getRandomSpecial, self.getRandomWord ]
+        methods = [ self.getRandomDigit, self.getRandomLetterLC, self.getRandomLetterUC,
+                    self.getRandomSpecial, self.getRandomWord ]
         input( "Press <enter> to choose next method" )
         random.seed()
         chosenMethod = random.choice(methods)
         self.lastMethod = chosenMethod
         return chosenMethod
 
-    ########################################################################################################################
+    #######################################################################################
     ##   getLengthIncrement()
-    ##       Determine how much to add to the target length based on length of a word component.
-    ##       We add to the lengh because a familiar word makes it easier to remember & enter so a longer password is tolerable; 
-    ##       Furthermore, a word provides less entropy than a string of random letters of similar length.
+    ##       Determine how much to add to the target length based on length of a word
+    ##       component.  We add to the lengh because a familiar word makes it easier to
+    ##       remember & enter so a longer password is tolerable; furthermore, a word
+    ##       provides less entropy than a string of random letters of similar length.
     def getLengthIncrement(self, word):
         wordLengthIncrement = [0, 0, 1, 1, 2, 2, 3, 4, 5, 6, 7]
         if len(word) < len(wordLengthIncrement):
             return wordLengthIncrement[ len(word) ]
         else:
-            # word too long.  Return the last value in the array plus the additional length of the word beyond the end of the array.
+            # word too long.  Return the last value in the array plus the additional
+            # length of the word beyond the end of the array.
             return ( wordLengthIncrement[-1] + len(word) - (len(wordLengthIncrement)-1) )
 
     def genPW(self):
