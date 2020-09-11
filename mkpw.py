@@ -33,12 +33,12 @@ class MkPw:
         self.nSpecial  = 0
         self.nWords    = 0
 
-    def printStats(self):
-        print( "nDigits  = ", self.nDigits )
-        print( "nLetterLC= ", self.nLetterLC )
-        print( "nLetterUC= ", self.nLetterUC )
-        print( "nSpecial = ", self.nSpecial )
-        print( "nWords   = ", self.nWords )
+    def getStats(self):
+        return dict([ ( "nDigits",   self.nDigits   ),
+                      ( "nLetterLC", self.nLetterLC ),
+                      ( "nLetterUC", self.nLetterUC ),
+                      ( "nSpecial",  self.nSpecial  ),
+                      ( "nWords",    self.nWords    ) ])
 
     def getRandomDigit(self, seed=""):
         List = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ]
