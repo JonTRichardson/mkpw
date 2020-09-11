@@ -4,11 +4,11 @@ Experimental password generator
 # Intro 
 This project is a password generator.  I set out to do something useful, explore information, randomness and security and to have fun making something.
 
-I can’t guarantee that you can use this to make passwords secure enough for your needs.  I like to think that I am clever and have given this some informed thought and considered other viewpoints.
+I can’t guarantee that you can use this to make passwords secure enough for your needs, but I've taken a stab at providing some building blocks.
 
 This isn’t intended as a turnkey program.  The intent is for a user to customize it for their own needs.
 
-In addition to this readme, I am working on another document delving into the issues and deeper into the thinking.
+In addition to this readme, I am working on another document delving into the issues and deeper into the thinking.  (update: effort on this other document has stalled.  If you are reading this and are curious, ask me and I might be willing to provide a draft.)
 
 This is an actively evolving work in progress.  I’m figuring out what it will look like as I go.  
 
@@ -34,15 +34,18 @@ To facilitate automated testing and other batch investigations, there is a defau
 *	Don’t use the supposedly clever tricks to come up with passwords that you can remember (e.g. substituting ‘1’ for ‘I’).
 
 # The (not-quite-abstract) base class
-I’m providing a base class, which I intend for a user to override with their own tailoring.  I didn’t make it abstract, for one because I haven’t figured out how to do that in python, or if it can be done in python (Update: TODO: read https://docs.python.org/3/library/abc.html).  Second, I want to have unit tests for the methods and I don’t want to deal with the inconvenience of abstractness.  These decisions may change as this evolves.
+I’m providing a base class, which I intend for a user to override with their own tailoring.  In the last section below (the TODO section), I suggest using the abc module to implement an abstract base class. 
 
 # Top-level generator
-The top-level generator randomly chooses methods and calls the methods to do their random thing.  This generator has a sense of the “quality of the password” that it is seeking.  “Quality” has different measures.  As I write this, password length is the only measure that I have implement with some adjustment based on what has gone into the pw so far (increasing the target length when a word is chosen from the word list).  The intent is for there to be additional quality measures (e.g. forcing there to be a number, upper, lower etc).
+The top-level generator randomly chooses methods and calls the methods to do their random thing.  This generator has a sense of the “quality of the password” that it is seeking.  “Quality” has different measures.  As I write this, password length is the only measure that I have implement with some adjustment based on what has gone into the pw so far (increasing the target length when a word is chosen from the word list).  The design anticipates adding other quality measures (e.g. forcing there to be a number, upper, lower etc).
 
 # TODOs
 
-* Abstract base class: ttps://docs.python.org/3/library/abc.html
-* A very long word could result in out-of-bounds reference.
+* Consider using Abstract base class: https://docs.python.org/3/library/abc.html
 * Some authentication systems are restricted in which special characters they take.
 * Words currently come out all lower case.  Consider ways to get more complexity.
+* Additional unit tests
+* Consider better cryptographic randomness
+* Consider how to get good randomness without interactive operation
+* Add arguments for things like no words, no specials, etc
 

@@ -19,7 +19,3 @@ class interactiveWord(mkpw.MkPw):
         self.nWords = self.nWords + 1
         return choice
 
-#TODO: A very long word could result in out-of-bounds reference.
-#TODO: Some authentication systems are restricted in which special characters they take.
-#TODO: Words currently come out all lower case.  Consider ways to get more complexity.
-
