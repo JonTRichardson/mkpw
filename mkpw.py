@@ -2,9 +2,7 @@ import random
 import unittest
 
 class MkPw:
-    """ WIP Password maker. """
-    """ For now, asks the user to press enter.  My assumption is that this will set the """
-    """ RNG seed to something truly random because it is dependent on user input.  """
+    """ Password maker base class """
 
     # Statistics:
     nDigits   = 0
@@ -40,6 +38,10 @@ class MkPw:
                       ( "nSpecial",  self.nSpecial  ),
                       ( "nWords",    self.nWords    ) ])
 
+    #######################################################################################
+    ##   getRandomDigit()
+    ##      Picks 1 random digit using the seed parameter.
+    ##      With default, empty seed, requests input, then resets the seed.
     def getRandomDigit(self, seed=""):
         List = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ]
         if (seed == "" ):
@@ -51,6 +53,10 @@ class MkPw:
         self.nDigits = self.nDigits + 1
         return choice
 
+    #######################################################################################
+    ##   getRandomLetterLC()
+    ##      Picks 1 random lower-case letter using the seed parameter.
+    ##      With default, empty seed, requests input, then resets the seed.
     def getRandomLetterLC(self, seed=""):
         List = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
                  'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ]
@@ -63,6 +69,10 @@ class MkPw:
         self.nLetterLC = self.nLetterLC + 1
         return choice
 
+    #######################################################################################
+    ##   getRandomLetterUC()
+    ##      Picks 1 random upper-case letter using the seed parameter.
+    ##      With default, empty seed, requests input, then resets the seed.
     def getRandomLetterUC(self, seed=""):
         List = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
                  'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' ]
@@ -75,6 +85,10 @@ class MkPw:
         self.nLetterUC = self.nLetterUC + 1
         return choice
 
+    #######################################################################################
+    ##   getRandomSpecial()
+    ##      Picks 1 random special character using the seed parameter.
+    ##      With default, empty seed, requests input, then resets the seed.
     def getRandomSpecial(self, seed=""):
         List = [ '`', '-', '=', '[', ']', ';', "'", ',', '.', '/', '\\', '~', '!',
                  '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+',  '{', '}',
@@ -91,6 +105,8 @@ class MkPw:
 
     #######################################################################################
     ##   getRandomWord()
+    ##      Picks 1 random word using the seed parameter, chosen from the wordList member.
+    ##      With default, empty seed, requests input, then resets the seed.
     def getRandomWord(self, seed="" ):
         if (seed == "" ):
             input( "press enter to generate a random word" )
@@ -129,6 +145,12 @@ class MkPw:
             # length of the word beyond the end of the array.
             return ( wordLengthIncrement[-1] + len(word) - (len(wordLengthIncrement)-1) )
 
+    #######################################################################################
+    ##   genPW()
+    ##      Generates a password composed of characters from the different
+    ##      components (digits, words etc).  Picks a target password length and continues
+    ##      to add characters until the target is met.  If a word is chosen, then some
+    ##      length is added to the target.
     def genPW(self):
 
         pw = ""
@@ -154,9 +176,10 @@ import string
 
 if __name__ == '__main__':
     class TestMkPw( unittest.TestCase ):
+        """ TestMkPw: unit tester for the MkPw class -- calls methods and verifies results """
         x = MkPw("")
         y = MkPw("testWords.txt")
-    
+
         def testGetLengthIncrement(self):
             word = '123'
             self.assertEqual( 1, self.x.getLengthIncrement(word) )
@@ -207,6 +230,7 @@ if __name__ == '__main__':
                 for c in word:
                     self.assertTrue( c in string.ascii_lowercase or c=='-', word )
     
+    print( TestMkPw.__doc__ )
     print( 'Testing MkPw ...' )
     print( MkPw.__doc__ )
     unittest.main()
