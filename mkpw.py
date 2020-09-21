@@ -151,6 +151,8 @@ class MkPw:
     ##      components (digits, words etc).  Picks a target password length and continues
     ##      to add characters until the target is met.  If a word is chosen, then some
     ##      length is added to the target.
+    ##      This method isn't unit-tested because it is interactive.  See the example code
+    ##      calling it from a different file.
     def genPW(self):
 
         pw = ""
@@ -171,6 +173,11 @@ class MkPw:
 
         return pw
 
+###########################################################################################
+##
+##   main
+##
+###########################################################################################
 
 import string
 
@@ -180,6 +187,13 @@ if __name__ == '__main__':
         x = MkPw("")
         y = MkPw("testWords.txt")
 
+        def testStats(self):
+            self.x.resetStats()
+            d = self.x.getStats()
+            self.assertEqual( len(d), 5, 'MkPw.getStats() returned dict with bad length' )
+            for i in d:
+                self.assertEqual( d[i], 0, 'Key: '+i )
+            
         def testGetLengthIncrement(self):
             word = '123'
             self.assertEqual( 1, self.x.getLengthIncrement(word) )
@@ -198,21 +212,29 @@ if __name__ == '__main__':
             for seed in range( 1000 ):
                 d = self.x.getRandomDigit( seed )
                 self.assertTrue( d in string.digits )
+            d = self.x.getStats()
+            self.assertEqual(d['nDigits'], 1000, 'nDigits has unexpected value')
     
         def testLower(self):
             for seed in range( 1000 ):
                 a = self.x.getRandomLetterLC( seed )
                 self.assertTrue( a in string.ascii_lowercase )
+            d = self.x.getStats()
+            self.assertEqual(d['nLetterLC'], 1000, 'nLetterLC has unexpected value')
     
         def testUpper(self):
             for seed in range( 1000 ):
                 a = self.x.getRandomLetterUC( seed )
                 self.assertTrue( a in string.ascii_uppercase )
+            d = self.x.getStats()
+            self.assertEqual(d['nLetterUC'], 1000, 'nLetterUC has unexpected value')
     
         def testSpecial(self):
             for seed in range( 1000 ):
                 a = self.x.getRandomSpecial( seed )
                 self.assertTrue( a in string.punctuation )
+            d = self.x.getStats()
+            self.assertEqual(d['nSpecial'], 1000, 'nSpecial has unexpected value')
     
         def testWord(self):
             for seed in range( 1000 ):
@@ -221,6 +243,9 @@ if __name__ == '__main__':
     
                 for c in word:
                     self.assertTrue( c in string.ascii_lowercase )
+
+            d = self.x.getStats()
+            self.assertEqual(d['nWords'], 1000, 'nWords has unexpected value')
     
         def testWord2(self):
             for seed in range( 1000 ):
