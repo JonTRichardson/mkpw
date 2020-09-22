@@ -14,7 +14,7 @@ class interactiveWord(mkpw.MkPw):
         while (response != "y"):
             choice = random.choice( self.wordList )
             print("Chosen word is ", choice)
-            response = input("Is that ok(y/n?")
+            response = input("Is that ok(y/n)?")
             print("response is ", response)
         self.nWords = self.nWords + 1
         return choice

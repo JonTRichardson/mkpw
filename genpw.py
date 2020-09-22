@@ -11,10 +11,8 @@ arguments = argumentParser.parse_args()
 
 ##############################
 #  Main
-print("penpw.py:main")
 po = interactiveWord.interactiveWord( arguments.filename )
 
-print("penpw.py:calling po.genPW()")
 pw = po.genPW()
 
 print("Password:", pw)
