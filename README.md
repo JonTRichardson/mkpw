@@ -4,11 +4,22 @@ Experimental password generator
 # Intro 
 My goal with this project is to explore password generation.  I set out to do something useful, explore information, randomness and security and to have fun making something.  Beyond the exploration, I hope it can provide utilitarian value by providing tools for you to generate your own passwords.  I provided a class heirarchy designed to be derived from.  For my own passwords, I use my own derived class, which I don't include in this repository.
 
+# Usage
+
+python genpw.py ""          # interactively generate a password using the words in defaultWords.txt
+
+python genpw testWords.txt  # use words from testWords.txt
+
+python mkpw.py              # run the unit-tests for the base class MkPw
+
+I have only run these with python3.7 in Windows Subsystem for Linux.
+
+# More Intro 
 I can’t guarantee that you can use this to make passwords secure enough for your needs, but I've taken a stab at providing some building blocks.
 
-This isn’t intended as a turnkey program.  The intent is for a user to customize it for their own needs.
+This isn’t intended as a turnkey program, rather, the intent is for a user to customize it for their own needs.  At the very least, you need to provide a dictionary file with a sufficiently large selection of words (you could start with, e.g. https://github.com/dwyl/english-words/ or http://www.manythings.org/vocabulary/lists/l/).
 
-In addition to this readme, I am working on another document delving into the issues and deeper into the thinking.  (update: effort on this other document has stalled.  If you are reading this and are curious, ask me and I might be willing to provide a draft.)
+In addition to this readme, I am working on a document delving into the issues and deeper into the thinking.  (update: effort on this other document has stalled.  If you are reading this and are curious, ask me and I might be willing to provide a draft.)
 
 This is an actively evolving work in progress.  I’m figuring out what it will look like as I go.  
 
@@ -52,4 +63,5 @@ The top-level generator randomly chooses methods and calls the methods to do the
 * Add a verbosity argument.
 * interactiveWord does not have a unit test.  I overrides a method in the base with interactive features, so it seemed like a unit test would have little value.  Nevertheless, one could be considered.  The unit test for the overridden method could be used. 
 * The command-line argument processing is incomplete.  Could e.g. add a few useful arguments, better defaulting and help text.
+* Try other python versions and other environments.
 
