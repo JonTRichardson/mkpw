@@ -2,7 +2,7 @@
 Experimental password generator
 
 # Intro 
-This project is a password generator.  I set out to do something useful, explore information, randomness and security and to have fun making something.
+My goal with this project is to explore password generation.  I set out to do something useful, explore information, randomness and security and to have fun making something.  Beyond the exploration, I hope it can provide utilitarian value by providing tools for you to generate your own passwords.  I provided a class heirarchy designed to be derived from.  For my own passwords, I use my own derived class, which I don't include in this repository.
 
 I can’t guarantee that you can use this to make passwords secure enough for your needs, but I've taken a stab at providing some building blocks.
 
@@ -39,7 +39,7 @@ I’m providing a base class, which I intend for a user to override with their o
 # Top-level generator
 The top-level generator randomly chooses methods and calls the methods to do their random thing.  This generator has a sense of the “quality of the password” that it is seeking.  “Quality” has different measures.  As I write this, password length is the only measure that I have implement with some adjustment based on what has gone into the pw so far (increasing the target length when a word is chosen from the word list).  The design anticipates adding other quality measures (e.g. forcing there to be a number, upper, lower etc).
 
-# TODOs
+# TODOs to consider
 
 * Consider using Abstract base class: https://docs.python.org/3/library/abc.html
 * Some authentication systems are restricted in which special characters they take.
@@ -48,4 +48,6 @@ The top-level generator randomly chooses methods and calls the methods to do the
 * Consider better cryptographic randomness
 * Consider how to get good randomness without interactive operation
 * Add arguments for things like no words, no specials, etc
+* MkPw has a method, genPW(), which is not in the file genpw.py.  This confusing irony has historic reasons.  Consider eliminating this confusion.
+* Add a verbosity argument
 
