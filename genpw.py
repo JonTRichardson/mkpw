@@ -1,4 +1,7 @@
-#import mkpw
+# genpw.py
+#   The main for the password generator.  
+#   Processes command line arguments and invokes the password generating object.
+
 import interactiveWord
 import random
 

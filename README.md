@@ -51,4 +51,5 @@ The top-level generator randomly chooses methods and calls the methods to do the
 * MkPw has a method, genPW(), which is not in the file genpw.py.  This confusing irony has historic reasons.  Consider eliminating this confusion.
 * Add a verbosity argument.
 * interactiveWord does not have a unit test.  I overrides a method in the base with interactive features, so it seemed like a unit test would have little value.  Nevertheless, one could be considered.  The unit test for the overridden method could be used. 
+* The command-line argument processing is incomplete.  Could e.g. add a few useful arguments, better defaulting and help text.
 
