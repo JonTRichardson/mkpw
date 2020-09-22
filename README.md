@@ -49,5 +49,6 @@ The top-level generator randomly chooses methods and calls the methods to do the
 * Consider how to get good randomness without interactive operation
 * Add arguments for things like no words, no specials, etc
 * MkPw has a method, genPW(), which is not in the file genpw.py.  This confusing irony has historic reasons.  Consider eliminating this confusion.
-* Add a verbosity argument
+* Add a verbosity argument.
+* interactiveWord does not have a unit test.  I overrides a method in the base with interactive features, so it seemed like a unit test would have little value.  Nevertheless, one could be considered.  The unit test for the overridden method could be used. 
 
